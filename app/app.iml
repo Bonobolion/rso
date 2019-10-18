@@ -25,7 +25,7 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" pureKotlinSourceFolders="C:\Users\JARir\AndroidStudioProjects\MyApplication\app\src\debug\kotlin;C:\Users\JARir\AndroidStudioProjects\MyApplication\app\src\debug\java;C:\Users\JARir\AndroidStudioProjects\MyApplication\app\src\release\kotlin;C:\Users\JARir\AndroidStudioProjects\MyApplication\app\src\release\java;C:\Users\JARir\AndroidStudioProjects\MyApplication\app\src\debugAndroidTest\kotlin;C:\Users\JARir\AndroidStudioProjects\MyApplication\app\src\debugUnitTest\kotlin;C:\Users\JARir\AndroidStudioProjects\MyApplication\app\src\releaseUnitTest\kotlin">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" pureKotlinSourceFolders="C:\Users\JARir\AndroidStudioProjects\rso\app\src\debug\kotlin;C:\Users\JARir\AndroidStudioProjects\rso\app\src\debug\java;C:\Users\JARir\AndroidStudioProjects\rso\app\src\release\kotlin;C:\Users\JARir\AndroidStudioProjects\rso\app\src\release\java;C:\Users\JARir\AndroidStudioProjects\rso\app\src\debugAndroidTest\kotlin;C:\Users\JARir\AndroidStudioProjects\rso\app\src\debugUnitTest\kotlin;C:\Users\JARir\AndroidStudioProjects\rso\app\src\releaseUnitTest\kotlin">
         <compilerSettings>
           <option name="additionalArguments" value="-Xallow-no-source-files" />
         </compilerSettings>
