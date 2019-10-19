@@ -11,7 +11,9 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        logInButton.setOnClickListener{
+        //this function initiates an intent object listening for a click on the logInButton,
+        //once the button is pressed the login process begins
+        logInButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
