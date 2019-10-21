@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication">
 
+    <uses-sdk tools:overrideLibrary="com.google.firebase.auth"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

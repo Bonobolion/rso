@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "265791510661",
+    "firebase_url": "https://therso-6a727.firebaseio.com",
+    "project_id": "therso-6a727",
+    "storage_bucket": "therso-6a727.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265791510661:android:e398c4f88a21c0bbf631ec",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265791510661-jk2phtt3pc12jd14kes2olfo2af9ar2v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "4c8b8448eb6defc6a5c67a90a93ff62e504a7f99"
+          }
+        },
+        {
+          "client_id": "265791510661-dblnvslsh172ng2sm8lt3kphdcinm7mi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuCUMxRBKV_UrtEHhDlnVHFPlxO2JuxE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265791510661-dblnvslsh172ng2sm8lt3kphdcinm7mi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
