@@ -25,11 +25,10 @@ class Login : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //Tapping registration button sends user to registration activity
-        startRegButton.setOnClickListener {
+        //sets up the sign up text to send the user to the registration screen when tapped
+        sign_up_prompt.setOnClickListener {
             val intent = Intent(this, Registration::class.java)
             startActivity(intent)
         }
-
     }
 }
