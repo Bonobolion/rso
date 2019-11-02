@@ -13,19 +13,45 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="27dp"
         android:text="@string/loginPageLogin"
-        app:layout_constraintBottom_toTopOf="@id/startRegButton"
+        app:layout_constraintBottom_toTopOf="@+id/sign_up_prompt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <Button
-        android:id="@+id/startRegButton"
+    <EditText
+        android:id="@+id/login_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:layout_marginBottom="65dp"
-        android:text="@string/loginPageRegister"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/fill_in_password_hint"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_email" />
+
+    <EditText
+        android:id="@+id/login_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="313dp"
+        android:ems="10"
+        android:hint="@string/fill_in_email_hint"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/sign_up_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="94dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/sign_up_prompt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
