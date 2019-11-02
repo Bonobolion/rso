@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_viewer"
+    >
+
+    <item
+        android:id="@+id/empty"
+        android:checkable="false"
+        android:title=" "
+        android:visible="true" />
+
+    <item
+        android:id="@+id/empty2"
+        android:checkable="false"
+        android:title=" "
+        android:visible="true" />
+
+
+    <group android:checkableBehavior="single">
+
+        //Add New Chore
+        <item
+            android:id="@+id/nav_addtask"
+            android:icon="@drawable/ic_action_addchore"
+            android:title="@string/addtask" />
+
+        //Todo List
+        <item
+            android:id="@+id/nav_todolist"
+
+            android:icon="@drawable/ic_action_todo"
+            android:title="@string/todo"/>
+
+        //Edit Profile
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_action_profile"
+            android:title="@string/profile" />
+
+        //Logout
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_action_logout"
+            android:title="@string/logout" />
+    </group>
+
+
+</menu>
