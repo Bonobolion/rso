@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">RSO</string>
     <string name="loginPageRegister">Register</string>
     <string name="loginPageLogin">Login</string>
     <string name="title_activity_login">Sign in</string>
@@ -9,8 +9,9 @@
     <string name="fill_in_name_hint">First Name</string>
     <string name="fill_in_email_hint">Email</string>
     <string name="fill_in_password_hint">Password</string>
-
+    <string name="sign_up_prompt">Don\'t have an account? Sign up here</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="Sign_up">Sign up</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
