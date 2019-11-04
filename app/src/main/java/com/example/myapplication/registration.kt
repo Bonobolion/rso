@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_registration.*
 import android.R.id.message
-import com.example.myapplication.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuthException
 
 
