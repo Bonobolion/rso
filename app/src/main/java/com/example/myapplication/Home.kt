@@ -17,6 +17,12 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //TODO:REMOVE DATABASE TESTING ACTIVITY, this is meant to build the database
+        todo_list_button.setOnClickListener {
+            val intent = Intent(this, DatabaseTesting::class.java)
+            startActivity(intent)
+        }
+
     }
 
 

@@ -12,11 +12,7 @@ import kotlinx.android.synthetic.main.login_page.*
 
 class Login : AppCompatActivity() {
 
-    //initialize activity's components
-    private lateinit var loginEmail : TextView
-    private lateinit var loginPass : TextView
-
-    //Firebase instance
+    //Firebase instance container
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,43 +21,13 @@ class Login : AppCompatActivity() {
 
         //initializes all UI elements and the Firebase instance
         auth = FirebaseAuth.getInstance()
-        setUI()
 
-        //this function initiates an intent object listening for a click on the logInButton,
-        //once the button is pressed the login process begins
+        //once the log in button is pressed the login process begins
         logInButton.setOnClickListener {
-            //checks if user has filled in the email and password field
-            if(validate()){
-                val loginEmail = login_email.text.toString()
-                val loginPass = loginPass.text.toString()
-
-                //sign in through Firebase's authenticator
-                auth.signInWithEmailAndPassword(loginEmail, loginPass).addOnCompleteListener { task ->
-                    //if the sign in is successful take the user to the home page
-                    if(task.isSuccessful){
-                        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-                        val user = auth.currentUser
-                        val intent = Intent(this, Home::class.java)
-                        startActivity(intent)
-                    }
-                    // If sign in fails, display a message to the user.
-                    else{
-                        val e = task.exception as FirebaseAuthException
-                        Toast.makeText(
-                            this,
-                            "Failed login: " + e.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                }
-            }
-
+            loginUser()
         }
 
-
-
-        //dev login bypass button
+        //dev login bypass button TODO: REMOVE
         bypass_button.setOnClickListener {
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
@@ -74,15 +40,43 @@ class Login : AppCompatActivity() {
         }
     }
 
-    private fun setUI(){
-        loginEmail = findViewById(R.id.logInButton)
-        loginPass = findViewById(R.id.login_password_button)
+    //this function handles the user attempting to login with an existing login
+    private fun loginUser(){
+        //checks if user has filled in the email and password field
+        if(validate()){
+            val loginEmail = login_email_textfield.text.toString()
+            val loginPass = login_password_textfield.text.toString()
+
+            //sign in through Firebase's authenticator
+            auth.signInWithEmailAndPassword(loginEmail, loginPass).addOnCompleteListener { task ->
+                //if the sign in is successful take the user to the home page
+                if(task.isSuccessful){
+                    Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
+                    val intent = Intent(this, Home::class.java)
+                    startActivity(intent)
+                }
+                // If sign in fails, display a message to the user.
+                else{
+                    //grab the exception message from the task and display the error to the user
+                    val e = task.exception as FirebaseAuthException
+                    Toast.makeText(
+                        this,
+                        "Failed login: " + e.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            }
+        }
+
     }
 
+    //this function validates the login text fields
     //returns true if both email and password field have been filled in
     private fun validate() : Boolean {
-        val email = loginEmail.text.toString()
-        val password = loginPass.text.toString()
+        val email = login_email_textfield.text.toString()
+        val password = login_password_textfield.text.toString()
 
         if (email.isEmpty()) {
             Toast.makeText(this, "Please type in your email", Toast.LENGTH_SHORT).show()
