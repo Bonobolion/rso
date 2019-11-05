@@ -3,14 +3,10 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_registration.*
-import android.R.id.message
-import com.example.myapplication.ui.login.LoginActivity
+import kotlinx.android.synthetic.main.registration_page.*
 import com.google.firebase.auth.FirebaseAuthException
 
 
@@ -28,7 +24,7 @@ class Registration : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration)
+        setContentView(R.layout.registration_page)
 
         //initializing the Firebase instance
         auth = FirebaseAuth.getInstance()
@@ -54,13 +50,12 @@ class Registration : AppCompatActivity() {
                             Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT)
                                 .show()
                             val user = auth.currentUser
-                            val intent = Intent(this, MainActivity::class.java)
+                            val intent = Intent(this, Home::class.java)
                             startActivity(intent)
                         }
                         //if the registration fails display the reason why and remain on the
                         //registration page
                         else {
-                            //Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
                             val e = task.exception as FirebaseAuthException
                             Toast.makeText(
                                 this,
