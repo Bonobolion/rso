@@ -27,7 +27,7 @@ class Login : AppCompatActivity() {
             loginUser()
         }
 
-        //dev login bypass button TODO: REMOVE
+        //dev login bypass button TODO: REMOVE THIS BUTTON
         bypass_button.setOnClickListener {
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
