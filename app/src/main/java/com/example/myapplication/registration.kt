@@ -9,7 +9,6 @@ import kotlinx.android.synthetic.main.registration_page.*
 import com.google.firebase.auth.FirebaseAuthException
 
 
-
 //This activity handles a first time user registering with the system and creating an account
 class Registration : AppCompatActivity() {
 
