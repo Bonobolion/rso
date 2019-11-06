@@ -21,4 +21,5 @@ class JoinDen : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    //TODO: ADD VALIDATION FOR THE DEN NAME
 }

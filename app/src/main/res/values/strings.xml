@@ -20,6 +20,7 @@
     <string name="Address">Address</string>
     <string name="Create_den">Start a den</string>
     <string name="Join_den">Join Den</string>
+    <string name="Sign_out">Sign Out</string>
     <string name="Create_den_prompt">Want to create a den instead? Tap here</string>
     <string name="Den_name">Den Name</string>
     <string name="Calendar">Calendar</string>
