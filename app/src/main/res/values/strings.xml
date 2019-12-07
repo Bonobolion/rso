@@ -13,7 +13,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="Bulletin_board">Bulletin Board</string>
     <string name="Send">Send</string>
-    <string name="Join_den_prompt">Want to join an existing den?\nGo ahead and enter the den\'s name</string>
+    <string name="Join_den_prompt">Want to join an existing den?\nGo ahead and enter the den\'s street address</string>
     <string name="Create_den_instructions">Go ahead and enter your\nnew den\'s name and address to create it</string>
     <string name="den_name_example">The Nuclear Tiger\'s Den</string>
     <string name="address_example">123 Nuclear Tiger Dr.</string>

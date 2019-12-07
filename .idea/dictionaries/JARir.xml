@@ -2,6 +2,7 @@
   <dictionary name="JARir">
     <words>
       <w>firebase</w>
+      <w>firebaseauth</w>
       <w>firestore</w>
     </words>
   </dictionary>
