@@ -67,7 +67,7 @@ class CreateDen : AppCompatActivity() {
                 startActivity(intent)
 
                 //This will add the newly created den's ID to the current user
-                //grab the current user's uid
+                //grab the current user's uid with firebaseauth's get instance()
                 val uid = FirebaseAuth.getInstance().uid.toString()
                 //create a field for the user called denID and save the den's ID to it
                 val denAssignment = hashMapOf("denID" to denID)
