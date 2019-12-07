@@ -1,56 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context=".Home">
 
-    <Button
-        android:id="@+id/todo_list_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/To_Do_List"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bulletin_board_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+    <LinearLayout
+        android:translationX="-280dp"
+        android:id="@+id/leftdrawer"
+        android:background="@color/colorGray"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bulletin_board_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Bulletin_board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
 
-    <Button
-        android:id="@+id/calendar_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="@string/Calendar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bulletin_board_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        <TextView
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:text="My Name"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/colorAccent"
+            android:text="username@email.com"
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
 
-    <Button
-        android:id="@+id/sign_out_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Sign_out"
-        app:layout_constraintBottom_toTopOf="@+id/bulletin_board_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="7dp"
+            android:background="@color/colorWhite"
+            />
+
+        <Button
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorGray"
+            android:textColor="@color/colorWhite"
+            android:text="   New Task"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_newtask"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
+        <Button
+            android:layout_marginLeft="32dp"
+            android:background="@color/colorGray"
+            android:textColor="@color/colorWhite"
+            android:text="   ToDo List"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_todo"
+            android:id="@+id/todo_list_button"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
+        <Button
+            android:layout_marginLeft="32dp"
+            android:background="@color/colorGray"
+            android:textColor="@color/colorWhite"
+            android:text="Profile"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_profile"
+            android:id="@+id/bulletin_board_button"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
+        <Button
+            android:layout_marginLeft="32dp"
+            android:background="@color/colorGray"
+            android:textColor="@color/colorWhite"
+            android:text="Calendar"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_calendar2"
+            android:id="@+id/calendar_button"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="7dp"
+            android:background="@color/colorWhite"
+            />
+
+        <Button
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorGray"
+            android:textColor="@color/colorWhite"
+            android:text="Sign Out"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_signout"
+            android:id="@+id/sign_out_button"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
+    </LinearLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:translationX="-280dp"
+        android:id="@+id/maincontent"
+        android:layout_width="416dp"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btm_nav"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:itemBackground="@color/colorWhite"
+            app:menu="@menu/bottom_nav"
+            />
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btm_nav"
+        >
+
+    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

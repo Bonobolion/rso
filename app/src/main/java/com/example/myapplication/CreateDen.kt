@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,6 +43,7 @@ class CreateDen : AppCompatActivity() {
         return true
     }
 
+
     //this function takes in input from create den field and creates an entry in the database
     private fun createDen(){
         val database = FirebaseFirestore.getInstance()
@@ -50,6 +52,11 @@ class CreateDen : AppCompatActivity() {
         //save values from text field
         val denName = den_name_textField.text.toString()
         val denAddress = den_address_textField.text.toString()
+
+        //All den information in the database is lowercase
+
+
+        Log.d("createden", denAddress.toString())
 
         //Generate the den object to be created within the database
         val den = hashMapOf(
@@ -63,8 +70,6 @@ class CreateDen : AppCompatActivity() {
             //if successful notify user with a toast and enter the home activity
             .addOnSuccessListener {
                 Toast.makeText(this, "Den successfully created", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, Home::class.java)
-                startActivity(intent)
 
                 //This will add the newly created den's ID to the current user
                 //grab the current user's uid with firebaseauth's get instance()
@@ -74,6 +79,10 @@ class CreateDen : AppCompatActivity() {
                 //merge the new data into the existing user on the database
                 database.collection("users").document(uid)
                     .set(denAssignment, SetOptions.merge())
+
+                //after the den has been created send the user to the home page
+                val intent = Intent(this, Home::class.java)
+                startActivity(intent)
             }
             //if data creation failed, output error message
             .addOnFailureListener {
