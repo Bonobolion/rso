@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.home_page.*
 
 class Home : AppCompatActivity() {
 
-
     //objects for fragments
     lateinit var dashboardFragment: DashboardFragment
     lateinit var calendarFragment: CalendarFragment
@@ -35,6 +34,9 @@ class Home : AppCompatActivity() {
             .replace(R.id.frame_layout, dashboardFragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
+
+        //establish user details in side drawer
+        setUser()
 
         //When selected each items, update the fragment view
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
@@ -60,7 +62,6 @@ class Home : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-
 
 
                 R.id.bulletin -> {
@@ -96,6 +97,20 @@ class Home : AppCompatActivity() {
         }
     }
 
+
+    //set user values for the side drawer
+    private fun setUser(){
+        //grab user and establish database instance
+        val uid = FirebaseAuth.getInstance().uid.toString()
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid).get().addOnSuccessListener {
+            document->
+            val user = document.data
+            drawerNameDisplay.text = user?.getValue("firstName").toString()
+            drawerEmailTextView.text = user?.getValue("email").toString()
+        }
+
+    }
 
     //For ToolBar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

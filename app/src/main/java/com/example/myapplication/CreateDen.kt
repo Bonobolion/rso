@@ -43,6 +43,15 @@ class CreateDen : AppCompatActivity() {
         return true
     }
 
+    //takes in a string and makes it lowercase
+    private fun String.makeLowercase(): String {
+        val charIterator = iterator() // CharIterator of string
+        var output = ""
+        for (char in charIterator) {
+            output += char.toLowerCase()
+        }
+        return output
+    }
 
     //this function takes in input from create den field and creates an entry in the database
     private fun createDen(){
@@ -51,7 +60,7 @@ class CreateDen : AppCompatActivity() {
         val denID = UUID.randomUUID().toString()
         //save values from text field
         val denName = den_name_textField.text.toString()
-        val denAddress = den_address_textField.text.toString()
+        val denAddress = den_address_textField.text.toString().makeLowercase()
 
         //All den information in the database is lowercase
 

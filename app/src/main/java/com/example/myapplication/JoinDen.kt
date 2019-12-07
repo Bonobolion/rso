@@ -29,9 +29,19 @@ class JoinDen : AppCompatActivity() {
         }
     }
 
+    //take string and makes it lowercase
+    private fun String.makeLowercase(): String {
+        val charIterator = iterator() // CharIterator of string
+        var output = ""
+        for (char in charIterator) {
+            output += char.toLowerCase()
+        }
+        return output
+    }
+
     private fun joinDen(){
         val db = FirebaseFirestore.getInstance()
-        val denAddress = den_name_textView.text.toString()
+        val denAddress = den_name_textView.text.toString().makeLowercase()
 
         //create a reference to the dens collection in firestore database
         val denRef = db.collection("dens")
