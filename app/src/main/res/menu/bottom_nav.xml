@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/ic_action_dashboard"
+        />
+
+    <item
+        android:id="@+id/calendar"
+        android:title="Calendar"
+        android:icon="@drawable/ic_action_calendar"
+        />
+
+    <item
+        android:id="@+id/bulletin"
+        android:title="Bulletin Board"
+        android:icon="@drawable/ic_action_bulletin"
+        />
+
+
+</menu>

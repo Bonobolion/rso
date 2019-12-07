@@ -3,17 +3,80 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.home_page.*
 
 class Home : AppCompatActivity() {
 
+
+    //objects for fragments
+    lateinit var dashboardFragment: DashboardFragment
+    lateinit var calendarFragment: CalendarFragment
+    lateinit var bulletinboardFragment: BulletinboardFragment
+    var selected = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
 
+        //BottomNavigationView
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.btm_nav)
+
+        //SET dashboard as default fragment
+        dashboardFragment = DashboardFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frame_layout, dashboardFragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
+
+        //When selected each items, update the fragment view
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+
+            when (item.itemId) {
+
+                R.id.dashboard -> {
+                    dashboardFragment = DashboardFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, dashboardFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+
+
+
+                R.id.calendar -> {
+                    calendarFragment = CalendarFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, calendarFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+
+
+
+                R.id.bulletin -> {
+                    bulletinboardFragment = BulletinboardFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, bulletinboardFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+
+            }
+            true
+
+
+        }
         //starts calendar activity on calendar button tap
         calendar_button.setOnClickListener {
             val intent = Intent(this, Calendar::class.java)
@@ -29,8 +92,44 @@ class Home : AppCompatActivity() {
         //signs out user when sign_out button is pressed
         sign_out_button.setOnClickListener {
            signOutUser()
+
         }
     }
+
+
+    //For ToolBar
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.mainmenu,menu);
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id = item.itemId
+        if (id == R.id.settings) {
+            if(!selected) {
+
+
+
+                maincontent.animate().translationX(0F)
+                leftdrawer.animate().translationX(0F)
+
+                selected = true
+            }
+            else if(selected){
+                maincontent.animate().translationX(-735F)
+                leftdrawer.animate().translationX(-735F)
+
+                selected = false
+            }
+
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
+
 
     //this function signs the current user out
     private fun signOutUser(){
