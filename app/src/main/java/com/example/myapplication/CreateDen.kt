@@ -43,6 +43,15 @@ class CreateDen : AppCompatActivity() {
         return true
     }
 
+    //takes in a string and makes it lowercase
+    private fun String.makeLowercase(): String {
+        val charIterator = iterator() // CharIterator of string
+        var output = ""
+        for (char in charIterator) {
+            output += char.toLowerCase()
+        }
+        return output
+    }
 
     //this function takes in input from create den field and creates an entry in the database
     private fun createDen(){
@@ -51,12 +60,8 @@ class CreateDen : AppCompatActivity() {
         val denID = UUID.randomUUID().toString()
         //save values from text field
         val denName = den_name_textField.text.toString()
-        val denAddress = den_address_textField.text.toString()
-
-        //All den information in the database is lowercase
-
-
-        Log.d("createden", denAddress.toString())
+        //make den address lowercase to facilitate future querying
+        val denAddress = den_address_textField.text.toString().makeLowercase()
 
         //Generate the den object to be created within the database
         val den = hashMapOf(
@@ -82,6 +87,7 @@ class CreateDen : AppCompatActivity() {
 
                 //after the den has been created send the user to the home page
                 val intent = Intent(this, Home::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
             //if data creation failed, output error message

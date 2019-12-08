@@ -29,9 +29,20 @@ class JoinDen : AppCompatActivity() {
         }
     }
 
+    //take string and makes it lowercase
+    private fun String.makeLowercase(): String {
+        val charIterator = iterator() // CharIterator of string
+        var output = ""
+        for (char in charIterator) {
+            output += char.toLowerCase()
+        }
+        return output
+    }
+
     private fun joinDen(){
         val db = FirebaseFirestore.getInstance()
-        val denAddress = den_name_textView.text.toString()
+        //den addresses are stored in all lowercase strings in the database
+        val denAddress = den_name_textView.text.toString().makeLowercase()
 
         //create a reference to the dens collection in firestore database
         val denRef = db.collection("dens")
@@ -57,10 +68,10 @@ class JoinDen : AppCompatActivity() {
                                         .set(denAssignment, SetOptions.merge())
                                     Toast.makeText(this, "Joining den: " + den.getValue("den_name"), Toast.LENGTH_SHORT).show()
                                 }
-
-                    //send the user to the home page
-                    val intent = Intent(this, Home::class.java)
-                    startActivity(intent)
+                                //send the user to the home page
+                                val intent = Intent(this, Home::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
                 }
         }.addOnFailureListener {
             //if search for den's address failed give the user an error message
