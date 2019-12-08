@@ -27,6 +27,8 @@ class Home : AppCompatActivity() {
         //BottomNavigationView
         val bottomNavigation: BottomNavigationView = findViewById(R.id.btm_nav)
 
+        verifyUserIsSignedIn()
+
         //SET dashboard as default fragment
         dashboardFragment = DashboardFragment()
         supportFragmentManager
@@ -36,7 +38,7 @@ class Home : AppCompatActivity() {
             .commit()
 
         //establish user details in side drawer
-        setUser()
+        setUserUI()
 
         //When selected each items, update the fragment view
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
@@ -71,6 +73,8 @@ class Home : AppCompatActivity() {
                         .replace(R.id.frame_layout, bulletinboardFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
+                    val intent = Intent(this, BulletinBoard::class.java)
+                    startActivity(intent)
                 }
 
             }
@@ -84,12 +88,6 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //TODO:REMOVE DATABASE TESTING ACTIVITY, this is meant to build the database
-        todo_list_button.setOnClickListener {
-            val intent = Intent(this, DatabaseTesting::class.java)
-            startActivity(intent)
-        }
-
         //signs out user when sign_out button is pressed
         sign_out_button.setOnClickListener {
            signOutUser()
@@ -99,7 +97,7 @@ class Home : AppCompatActivity() {
 
 
     //set user values for the side drawer
-    private fun setUser(){
+    private fun setUserUI(){
         //grab user and establish database instance
         val uid = FirebaseAuth.getInstance().uid.toString()
         val db = FirebaseFirestore.getInstance()
@@ -123,8 +121,6 @@ class Home : AppCompatActivity() {
         if (id == R.id.settings) {
             if(!selected) {
 
-
-
                 maincontent.animate().translationX(0F)
                 leftdrawer.animate().translationX(0F)
 
@@ -144,7 +140,14 @@ class Home : AppCompatActivity() {
 
 
 
-
+    private fun verifyUserIsSignedIn(){
+        val uid = FirebaseAuth.getInstance().uid
+        if(uid == null){
+            val intent = Intent(this, Login::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+    }
 
     //this function signs the current user out
     private fun signOutUser(){
@@ -164,6 +167,8 @@ class Home : AppCompatActivity() {
             Toast.makeText(this, "Signing out $name", Toast.LENGTH_SHORT).show()
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, Login::class.java)
+            //clear activity stack
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         //if the user fails to sign out, display error message to the user
         }.addOnFailureListener {

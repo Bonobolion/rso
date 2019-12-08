@@ -25,8 +25,11 @@
     <string name="Den_name">Den Name</string>
     <string name="Calendar">Calendar</string>
     <string name="To_Do_List">To-do List</string>
+    <string name="Post">Post</string>
+    <string name="Enter_Message">Enter message...</string>
     <string name="Sign_up">Sign up</string>
     <string name="welcome">"Welcome !"</string>
+    <string name="make_post">Delete Post</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
