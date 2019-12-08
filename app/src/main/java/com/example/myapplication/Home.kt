@@ -91,7 +91,6 @@ class Home : AppCompatActivity() {
         //signs out user when sign_out button is pressed
         sign_out_button.setOnClickListener {
            signOutUser()
-
         }
     }
 
@@ -106,6 +105,8 @@ class Home : AppCompatActivity() {
             val user = document.data
             drawerNameDisplay.text = user?.getValue("firstName").toString()
             drawerEmailTextView.text = user?.getValue("email").toString()
+            val denID = user?.getValue("denID").toString()
+            val denRef = db.collection("dens").document()
         }
 
     }

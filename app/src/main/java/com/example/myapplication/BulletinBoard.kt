@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -21,9 +22,14 @@ import kotlinx.android.synthetic.main.activity_bulletin_board.*
 import kotlinx.android.synthetic.main.activity_create_den.*
 import kotlinx.android.synthetic.main.bulletinrow.view.*
 import java.util.*
+import kotlin.math.log
 
 
 class BulletinBoard : AppCompatActivity() {
+
+    companion object{
+        val TAG = "bulletin"
+    }
 
     val adapter = GroupAdapter<GroupieViewHolder>()
 
@@ -31,6 +37,7 @@ class BulletinBoard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bulletin_board)
         recyclerview_bulletinboard.layoutManager = LinearLayoutManager(this)
+        //establish the adapter for the bulletin board
         recyclerview_bulletinboard.adapter = adapter
 
         bulletin_postButton.setOnClickListener {
@@ -41,47 +48,47 @@ class BulletinBoard : AppCompatActivity() {
         }
         listenForUpdates()
     }
-        private fun listenForUpdates() {
-            //firestore instance
-            val db = FirebaseFirestore.getInstance()
-            //grab denID
-            //den id is null
-            val uid = FirebaseAuth.getInstance().uid.toString()
-            val userRef = db.collection("users").document(uid).get()
-                .addOnSuccessListener {
-                    //grab the denID from the query
-                    val buffer = it.data
-                    val denID = buffer?.getValue("denID").toString()
 
-                    //listen to changes in documents with the matching denID
-                    val docRef = db.collection("bulletin_posts")
-                        .whereEqualTo("denID",denID)
-                        .addSnapshotListener{ value, e ->
-                            if (e != null) {
-                                Toast.makeText(this, "Failed to retrieve bulletin board",Toast.LENGTH_SHORT).show()
-                                return@addSnapshotListener
-                            }
+    //this function updates the bulletin board once a post is made
+    private fun listenForUpdates() {
+        //firestore instance
+        val db = FirebaseFirestore.getInstance()
+        //grab the current user's uid
+        val uid = FirebaseAuth.getInstance().uid.toString()
 
-                            val posts = ArrayList<Post>()
+        //grab the current user's denID and on a success begin listening for posts
+        val userRef = db.collection("users").document(uid).get()
+            .addOnSuccessListener {
+                //save the received data into a buffer map
+                val buffer = it.data
+                //save the denID from the buffer map
+                val denID = buffer?.getValue("denID").toString()
 
-                            for (doc in value!!) {
-                                val content = doc.getString("post_content").toString()
-                                val author = doc.getString("author").toString()
-                                //val timestamp = doc.getLong("timestamp")!!.toLong()
-                                val post = Post(content,author)
-                                posts.add(post)
-                            }
-                            if(posts.size == 0) {
-                                return@addSnapshotListener
-                            }
-                            else {
-                                adapter.add(BulletinPost(posts[posts.size-1]))
-                            }
+                db.collection("bulletin_posts")
+                    .whereEqualTo("denID", denID)
+                    .addSnapshotListener { snapshots, e ->
+                        if (e != null) {
+                            Log.w(TAG, "listen:error", e)
+                            return@addSnapshotListener
                         }
-                }
-        }
+                        for (dc in snapshots!!.documentChanges) {
+                            when (dc.type) {
+                                DocumentChange.Type.ADDED -> Log.d(TAG, "New post: ${dc.document.data}")
+                            }
+                            //grab content, author, and timestamp from the received data
+                            val content = dc.document.getString("post_content").toString()
+                            val author = dc.document.getString("author").toString()
+                            val timestamp = dc.document.getString("timestamp").toString()
+                            //create post object that will be placed on the recycler
+                            val newPost = Post(content,author,timestamp)
+                            //add post object to the recycler
+                            adapter.add(BulletinPost(newPost))
+                        }
+                    }
+            }
+    }
 
-    //takes input in the text field and creates a post entry in the database to be displayed
+    //takes input in the text field and saves a post entry in the database to be displayed
     //in the recycler view
     private fun createPost() {
         //get firestore reference
@@ -93,14 +100,18 @@ class BulletinBoard : AppCompatActivity() {
         val creatorUID = FirebaseAuth.getInstance().uid.toString()
         //generate a random ID for the post
         val postID = UUID.randomUUID().toString()
-        //grab the den ID from the user's record
-        //grab content from text field
+        //grab content from input text field
         val postContent = bulletin_postTextfield.text.toString()
 
-        val query = db.collection("users").document(creatorUID).get().addOnSuccessListener {
+        //query to get the current user's denID
+        val query = db.collection("users").document(creatorUID)
+            .get().addOnSuccessListener {
+            //save the retrieved data in a map object
             val buffer = it.data
+            //grab the denID from the buffer map object and save it to denID
             val denID = buffer?.getValue("denID").toString()
 
+            //create the post map that will be saved in firestore
             val post = hashMapOf(
                 "postID" to postID,
                 "creatorID" to creatorUID,
@@ -108,8 +119,9 @@ class BulletinBoard : AppCompatActivity() {
                 "denID" to denID,
                 "post_content" to postContent,
                 "author" to buffer?.getValue("firstName").toString()
-                )
+            )
 
+            //save the newly created post mapping to the firestore database
             db.collection("bulletin_posts").document(postID).set(post)
                 //if successful notify user with a toast and enter the home activity
                 .addOnSuccessListener {
@@ -164,4 +176,4 @@ class BulletinPost(val post : Post): Item<GroupieViewHolder>() {
     }
 }
 
-class Post(val content : String, val author : String)
+class Post(val content : String, val author : String, val ts : String)
