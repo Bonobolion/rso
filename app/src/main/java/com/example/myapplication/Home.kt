@@ -23,11 +23,14 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
+        //check if the user is signed in, if not then send to login page
+        verifyUserIsSignedIn()
+        //establish user details in side drawer
+        setUserUI()
 
         //BottomNavigationView
         val bottomNavigation: BottomNavigationView = findViewById(R.id.btm_nav)
 
-        verifyUserIsSignedIn()
 
         //SET dashboard as default fragment
         dashboardFragment = DashboardFragment()
@@ -37,8 +40,6 @@ class Home : AppCompatActivity() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
-        //establish user details in side drawer
-        setUserUI()
 
         //When selected each items, update the fragment view
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
@@ -106,7 +107,13 @@ class Home : AppCompatActivity() {
             drawerNameDisplay.text = user?.getValue("firstName").toString()
             drawerEmailTextView.text = user?.getValue("email").toString()
             val denID = user?.getValue("denID").toString()
-            val denRef = db.collection("dens").document()
+            val denRef = db.collection("dens")
+                .document(denID).get()
+                .addOnSuccessListener {doc->
+                    val denName = doc.data?.getValue("den_name").toString()
+                    supportActionBar?.title = denName
+            }
+
         }
 
     }

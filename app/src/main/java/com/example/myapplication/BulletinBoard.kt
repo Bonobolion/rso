@@ -1,37 +1,36 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.BulletinBoard.Companion.TAG
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_bulletin_board.*
-import kotlinx.android.synthetic.main.activity_create_den.*
 import kotlinx.android.synthetic.main.bulletinrow.view.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.log
+import java.util.Calendar.getInstance
 
 
 class BulletinBoard : AppCompatActivity() {
 
     companion object{
-        val TAG = "bulletin"
+        const val TAG = "bulletin"
     }
 
-    val adapter = GroupAdapter<GroupieViewHolder>()
+
+
+    private val adapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +64,7 @@ class BulletinBoard : AppCompatActivity() {
                 val denID = buffer?.getValue("denID").toString()
 
                 db.collection("bulletin_posts")
-                    .whereEqualTo("denID", denID)
+                    .whereEqualTo("denID", denID).orderBy("timestamp")
                     .addSnapshotListener { snapshots, e ->
                         if (e != null) {
                             Log.w(TAG, "listen:error", e)
@@ -165,11 +164,23 @@ class BulletinBoard : AppCompatActivity() {
     }
 }
 
-class BulletinPost(val post : Post): Item<GroupieViewHolder>() {
+class BulletinPost(private val post : Post): Item<GroupieViewHolder>() {
+
+    private fun convertLongToTime(time: Long): String {
+        Log.d(TAG, time.toString())
+        val date = Date(time * 1000)
+        val format = SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.US)
+        return format.format(date)
+    }
+
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //will be called in list
         viewHolder.itemView.post_content.text = post.content
         viewHolder.itemView.post_author.text = post.author
+        //set timestamp
+        val time = post.ts.toLong()
+        val date = convertLongToTime(time)
+        viewHolder.itemView.timestamp.text = date
     }
     override fun getLayout(): Int {
         return R.layout.bulletinrow

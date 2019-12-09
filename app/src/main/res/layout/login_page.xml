@@ -49,19 +49,20 @@
         android:clickable="true"
         android:focusable="true"
         android:text="@string/sign_up_prompt"
+        android:textColor="@color/colorBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/bypass_button"
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="bypass"
         app:layout_constraintBottom_toTopOf="@+id/login_email_textfield"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

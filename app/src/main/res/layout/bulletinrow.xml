@@ -56,7 +56,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Author"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Author"
+                android:textSize="12sp" />
 
 
         </LinearLayout>

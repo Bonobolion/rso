@@ -18,16 +18,18 @@
         <activity android:name=".Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"></activity>
-        <activity android:name=".BulletinBoard"
-            android:label="@string/Bulletin_board"></activity>
-        <activity android:name=".CreateDen"></activity>
-        <activity android:name=".JoinDen"></activity>
-        <activity android:name=".Registration"></activity>
-        <activity android:name=".Calendar"></activity>
+        <activity android:name=".Login" />
+        <activity
+            android:name=".BulletinBoard"
+            android:label="@string/Bulletin_board" />
+        <activity android:name=".CreateDen" />
+        <activity android:name=".JoinDen" />
+        <activity android:name=".Registration" />
+        <activity android:name=".Calendar" />
     </application>
 
 </manifest>

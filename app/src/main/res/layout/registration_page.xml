@@ -10,7 +10,7 @@
         android:id="@+id/registration_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/fill_in_email_hint"
         android:inputType="textEmailAddress"
@@ -45,13 +45,36 @@
         android:id="@+id/registration_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/fill_in_name_hint"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/registration_lastname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/registration_lastname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/lastname"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/registration_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reg_instructions"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toTopOf="@+id/registration_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96" />
+        app:layout_constraintVertical_bias="0.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
