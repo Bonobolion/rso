@@ -6,14 +6,14 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="fill_in_name_hint">First Name</string>
+    <string name="fill_in_name_hint">Name</string>
     <string name="fill_in_email_hint">Email</string>
     <string name="fill_in_password_hint">Password</string>
     <string name="sign_up_prompt">Don\'t have an account? Sign up here!</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="Bulletin_board">Bulletin Board</string>
     <string name="Send">Send</string>
-    <string name="Join_den_prompt">Want to join an existing home?\nGo ahead and enter the home\'s street address</string>
+    <string name="Join_den_prompt">Want to join an existing home?\nGo ahead and enter the home\'s  name</string>
     <string name="Create_den_instructions">Go ahead and enter your\nnew home\'s name and address to create it</string>
     <string name="den_name_example">The Nuclear Tiger\'s Den</string>
     <string name="address_example">123 Nuclear Tiger Dr.</string>
