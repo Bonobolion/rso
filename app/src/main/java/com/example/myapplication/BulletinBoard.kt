@@ -11,16 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_bulletin_board.*
 import kotlinx.android.synthetic.main.activity_create_den.*
 import kotlinx.android.synthetic.main.bulletinrow.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.log
 
@@ -65,7 +64,7 @@ class BulletinBoard : AppCompatActivity() {
                 val denID = buffer?.getValue("denID").toString()
 
                 db.collection("bulletin_posts")
-                    .whereEqualTo("denID", denID)
+                    .whereEqualTo("denID", denID).orderBy("timestamp", Query.Direction.DESCENDING)
                     .addSnapshotListener { snapshots, e ->
                         if (e != null) {
                             Log.w(TAG, "listen:error", e)
@@ -121,6 +120,8 @@ class BulletinBoard : AppCompatActivity() {
                 "author" to buffer?.getValue("firstName").toString()
             )
 
+                val newPost = Post(postContent, buffer?.getValue("firstName").toString(), timeStamp)
+                adapter.add(BulletinPost(newPost))
             //save the newly created post mapping to the firestore database
             db.collection("bulletin_posts").document(postID).set(post)
                 //if successful notify user with a toast and enter the home activity
@@ -134,22 +135,7 @@ class BulletinBoard : AppCompatActivity() {
         }
     }
 
-    //listen for create post button press on top menu bar
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            //TODO: bring up delete post activity where all of the user's posts are displayed
-            //and they can select which one to delete
-            R.id.deletePost -> {
 
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bulletinmenu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
     //validates that the text fields have been filled
     private fun validate() : Boolean {
@@ -165,11 +151,27 @@ class BulletinBoard : AppCompatActivity() {
     }
 }
 
+
+
 class BulletinPost(val post : Post): Item<GroupieViewHolder>() {
+
+    private fun convertLongToTime (time : Long): String {
+        val date = Date(time * 1000)
+        val format = SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.US)
+         return format.format(date)
+    }
+
+
+
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //will be called in list
         viewHolder.itemView.post_content.text = post.content
-        viewHolder.itemView.post_author.text = post.author
+
+        val time = post.ts.toLong()
+        val date = convertLongToTime(time)
+
+        viewHolder.itemView.post_author.text = post.author + ", " + date
+
     }
     override fun getLayout(): Int {
         return R.layout.bulletinrow

@@ -67,12 +67,12 @@ class Home : AppCompatActivity() {
 
 
                 R.id.bulletin -> {
-                    bulletinboardFragment = BulletinboardFragment()
+                    /*bulletinboardFragment = BulletinboardFragment()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, bulletinboardFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
+                        .commit()*/
                     val intent = Intent(this, BulletinBoard::class.java)
                     startActivity(intent)
                 }

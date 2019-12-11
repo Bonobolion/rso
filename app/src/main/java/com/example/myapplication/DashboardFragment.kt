@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.bulletinrow.view.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.home_page.*
 
 /**
  * A simple [Fragment] subclass.
@@ -40,8 +42,26 @@ class DashboardFragment : Fragment() {
         recyclerview_recents.layoutManager = LinearLayoutManager(context)
         recyclerview_recents.adapter = adapter
 
+        setDenName()
         //val recyclerView = R.id.recyclerview_recents
         listenForUpdates()
+    }
+
+    private fun setDenName () {
+        val uid = FirebaseAuth.getInstance().uid.toString()
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid).get().addOnSuccessListener {
+                document->
+            val user = document.data
+            val denID = user?.getValue("denID").toString()
+            val denRef = db.collection("dens")
+                .document(denID).get()
+                .addOnSuccessListener {doc->
+                    val denName = doc.data?.getValue("den_name").toString()
+                    dash_denname?.text = denName
+                }
+
+        }
     }
 
 
@@ -62,7 +82,7 @@ class DashboardFragment : Fragment() {
                 val denID = buffer?.getValue("denID").toString()
 
                 db.collection("bulletin_posts")
-                    .whereEqualTo("denID", denID)
+                    .whereEqualTo("denID", denID).orderBy("timestamp", Query.Direction.DESCENDING)
                     .addSnapshotListener { snapshots, e ->
                         if (e != null) {
                             Log.w(BulletinBoard.TAG, "listen:error", e)

@@ -93,7 +93,7 @@
                                 android:layout_gravity="end"
                                 android:layout_marginBottom="16dp"
                                 android:layout_marginLeft="16dp"
-                                android:text="Tiger Fallout"
+                                android:text=""
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
