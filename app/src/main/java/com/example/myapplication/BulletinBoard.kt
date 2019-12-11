@@ -81,6 +81,7 @@ class BulletinBoard : AppCompatActivity() {
                             //create post object that will be placed on the recycler
                             val newPost = Post(content,author,timestamp)
                             //add post object to the recycler
+                            Log.d(TAG, "new post added")
                             adapter.add(BulletinPost(newPost))
                         }
                     }
@@ -120,6 +121,8 @@ class BulletinBoard : AppCompatActivity() {
                 "author" to buffer?.getValue("firstName").toString()
             )
 
+            val newPost = Post(postContent, buffer?.getValue("firstName").toString(), timeStamp)
+            adapter.add(BulletinPost(newPost))
             //save the newly created post mapping to the firestore database
             db.collection("bulletin_posts").document(postID).set(post)
                 //if successful notify user with a toast and enter the home activity
@@ -133,22 +136,6 @@ class BulletinBoard : AppCompatActivity() {
         }
     }
 
-    //listen for create post button press on top menu bar
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            //TODO: bring up delete post activity where all of the user's posts are displayed
-            //and they can select which one to delete
-            R.id.deletePost -> {
-
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bulletinmenu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
     //validates that the text fields have been filled
     private fun validate() : Boolean {

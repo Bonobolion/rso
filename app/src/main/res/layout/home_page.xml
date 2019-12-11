@@ -136,10 +136,11 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/btm_nav"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             app:itemBackground="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="@id/frame_layout"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintLeft_toLeftOf="@id/frame_layout"
             app:layout_constraintRight_toRightOf="@id/frame_layout"
             app:menu="@menu/bottom_nav" />
