@@ -41,9 +41,6 @@ class DashboardFragment : Fragment() {
         recyclerview_recents.adapter = adapter
 
         //val recyclerView = R.id.recyclerview_recents
-
-
-
         listenForUpdates()
     }
 
