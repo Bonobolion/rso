@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.bulletinrow.view.*
 
+
 class BulletinAdapter: RecyclerView.Adapter<BulletinViewHolder>(){
 
     //returns number of items
     override fun getItemCount(): Int {
-        return 5
+        return 3
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BulletinViewHolder {
@@ -22,6 +23,7 @@ class BulletinAdapter: RecyclerView.Adapter<BulletinViewHolder>(){
     override fun onBindViewHolder(holder: BulletinViewHolder, position: Int) {
 
     }
+
 }
 
 class BulletinViewHolder(val view: View): RecyclerView.ViewHolder(view){
